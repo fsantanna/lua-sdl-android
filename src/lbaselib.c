@@ -19,8 +19,7 @@
 #include "lauxlib.h"
 #include "lualib.h"
 
-
-
+#include <android/log.h>
 
 /*
 ** If your system does not support `stdout', you can just remove this function.
@@ -41,8 +40,12 @@ static int luaB_print (lua_State *L) {
     if (s == NULL)
       return luaL_error(L, LUA_QL("tostring") " must return a string to "
                            LUA_QL("print"));
-    if (i>1) fputs("\t", stdout);
-    fputs(s, stdout);
+    //if (i>1) fputs("\t", stdout);
+    //fputs(s, stdout);
+
+    if (i>1) __android_log_print(4, "SDL", "\t");
+    __android_log_print(4, "SDL", s);
+
     lua_pop(L, 1);  /* pop result */
   }
   fputs("\n", stdout);
